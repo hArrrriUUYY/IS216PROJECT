@@ -1,0 +1,184 @@
+ <!DOCTYPE html>
+ <html lang="en">
+
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Registration | Fit Me </title>
+
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+     <script src="https://unpkg.com/vue@next"></script>
+     <!-- Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+     <!-- Font Icon -->
+     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+     <!-- Main css -->
+     <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+     <style>
+         body {
+            font-size: 20px;
+         }
+         
+         input[type=text]:focus {
+             background-color: rgb(233, 242, 255);
+         }
+
+         input[type=number]:focus {
+             background-color: rgb(233, 242, 255);
+         }
+
+         input[type=email]:focus {
+             background-color: rgb(233, 242, 255);
+         }
+
+         input[type=password]:focus {
+             background-color: rgb(233, 242, 255);
+         }
+
+         .row {
+             padding-top: 10px
+         }
+
+
+         .header {
+             font-weight: bold;
+             font-size: xx-large;
+             padding: 10px;
+         }
+
+         .registration {
+             text-align: center;
+             font-size: xx-large;
+             margin-bottom: 30px;
+
+         }
+
+
+         body {
+             font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+             background-image: url("imgs/bg1.jpg");
+             background-repeat: no-repeat;
+             background-size: 100% 100%;
+             background-position: center;
+             opacity: 100%;
+
+         }
+     </style>
+ </head>
+
+ <body>
+     <div id="app">
+         <div>
+             <alert-box v-if="error!=''" v-html="error">
+             </alert-box>
+             <success v-if="successfulReg !=''">{{successfulReg}}</success>
+         </div>
+         <div>
+             <section class="signup">
+                 <div class="container">
+                     <div class="signup-content ">
+                         <div class="signup-form">
+                             <h2 class="form-title">Sign up</h2>
+                             <form method="POST" class="register-form" id="register-form">
+                                 <div class="form-group">
+                                     <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                     <input type="text" name="name" id="name" v-model="name" placeholder="Your Name" />
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                     <input type="email" name="email" v-model="email" id="email" placeholder="Your Email" />
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                                     <input type="password" v-model="password" name="password" id="password" placeholder="Password" />
+                                 </div>
+                                 <div class="form-group">
+                                     <label for="cnfmPassword"><i class="zmdi zmdi-lock-outline"></i></label>
+                                     <input type="password" name="cnfmPassword" v-model="cnfmPassword" id="cnfmPassword" placeholder="Repeat your password" />
+                                 </div>
+
+
+                                 <div class="form-group">
+                                     <label for="height"><i class="fa-solid fa-ruler"></i></label>
+                                     <input type="number" name="height" v-model="height" id="height" placeholder="Your height in cm" />
+                                 </div>
+                                 <div class="form-group">
+
+                                     <div class="form-group">
+                                         <label for="weight"><i class='fa-solid fa-weight-scale'></i></label>
+                                         <input type="number" name="weight" v-model="weight" id="weight" placeholder="Your weight in kg" />
+                                     </div>
+
+                                     <div class="form-group">
+                                         <div class=" text-start fw-bold d-flex">BMI:
+                                             <span v-if="height!=''&& weight!=''" class="text-start">
+                                                 <span class="pe-2"></span>
+                                                 <span v-if="getBMI()<18.5" style="color:blue">
+                                                     {{getBMI()}} - UNDERWEIGHT
+                                                 </span>
+
+                                                 <span v-else-if="getBMI()<24.9" style="color:green">
+                                                     {{getBMI()}} - ACCEPTABLE
+                                                 </span>
+
+                                                 <span v-else-if="getBMI()<29.9" style="color:yellow">
+                                                     {{getBMI()}} - OVERWEIGHT
+                                                 </span>
+
+                                                 <span v-else-if="getBMI()<34.9" style="color:orange">
+                                                     {{getBMI()}} - OBESE
+                                                 </span>
+
+                                                 <span v-else-if="getBMI()>34.9" style="color:red">
+                                                     {{getBMI()}} - SEVERELY OBESE
+                                                 </span>
+
+                                             </span>
+                                             <span v-else class="text-start" style="color:rgb(184, 183, 183)"><span class="pe-2"></span>Key in your Height and Weight to view your BMI </span>
+
+                                         </div>
+                                     </div>
+
+
+                                     <div style="color:grey; padding-top: 20px;">
+                                         <span>
+                                             Cut - Lose Weight/ Lose Fat <br>
+                                             Bulk - Gain Weight/ Gain Muscles
+                                         </span>
+
+                                         <span>
+                                             <select class="form-select" aria-label="Default select example" style="padding-left:20px; margin-top:20px;" name="cutOrBulk" v-model="cutOrBulk" id="cutOrBulk">
+                                                 <option selected disabled value="" >Cut Or Bulk?</option>
+                                                 <option value="cut">Cut</option>
+                                                 <option value="bulk">Bulk</option>
+                                             </select>
+                                         </span>
+                                     </div>
+                                     <div style="text-align:left; width:100%">
+                                        <a href="./login.html">Already have an account?</a>
+                                    </div>
+                                     <div class="form-group form-button">
+                                         <input type="submit" name="signup" id="signup" class="form-submit btn btn-primary" @click.prevent="register()" value="Register" />
+                                     </div>
+                             </form>
+                         </div>
+                     </div>
+                     <div class="signup-image">
+                        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_ot9fofi5.json" background="transparent" speed="1" style="width: auto; height: 100%;" loop autoplay></lottie-player>
+                    </div>
+                 </div>
+             </section>
+
+         </div>
+
+     </div>
+
+     <script type="module" src="./reg.js"></script>
+ </body>
+
+ </html>

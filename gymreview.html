@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--icon library-->
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
+    <!--google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <!--Bootstrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!--axios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--Lottie-->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <!-- import vue -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Gyms Review | Fit Me </title>
+
+    <style>
+        body {
+            font-weight: bold;
+        }
+
+        .top {
+            text-align: center;
+        }
+
+        .nav {
+            margin-top: 50px;
+            overflow: hidden;
+            background-color: lightgrey;
+        }
+
+        .nav-link {
+            color: black;
+        }
+
+        .nav-link:hover {
+            color: white;
+            cursor: pointer;
+        }
+
+        .review {
+            text-align: center;
+        }
+
+        body {
+        font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        background-color: lightgrey;
+    }
+
+    /*back to top button*/
+    #myBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 30px;
+        z-index: 99;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        background-color: #007BFF;
+        color: white;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+    #myBtn:hover {
+        background-color: #0B5ED7;
+    }
+
+    #toggleMobileMenu ul {
+        list-style: none;
+        padding: 0;
+        color: white;
+    }
+
+    .nav_effect {
+        display: inline-block;
+        margin-right: 15px;
+        font-size: 30px;
+        text-transform: uppercase;
+        padding: 10px;
+        transition: .5s;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .profile_DDI {
+        font-size: 30px;
+    }
+
+    @media (max-width: 991px) {
+        .nav_effect {
+            margin-bottom: 5px;
+        }
+
+        .nav_profile {
+            margin-top: 10px;
+        }
+
+        .profile_DDI {
+            text-align: center;
+        }
+    }
+
+    .nav_effect:before {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        border-top: 1px solid #0078fe;
+        border-bottom: 1px solid #0078fe;
+        transform: scaleY(2);
+        transition: .5s;
+        opacity: 0;
+    }
+
+    .nav_effect:hover:before {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    .nav_effect:after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #0078fe;
+        z-index: -1;
+        transform: scale(0);
+        transition: .5s;
+    }
+
+    .nav_effect:hover:after {
+        transform: scale(1);
+    }
+
+    .nav_effect:hover {
+        background-color: #0078fe;
+    }
+
+    .navbar_large {
+        display: hidden;
+    }
+
+    .dropdown:active .dropdown-menu {
+        display: block;
+    }
+
+    footer {
+        font-size: 20px;
+    }
+    </style>
+</head>
+
+<body>
+    <!--get header-->
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fas fa-chevron-up"></i></button>
+
+<header class="bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark pt-0">
+        <div class="container-fluid">
+            <img src="imgs/fitme_logo.jpg" style="height: 100px" /> 
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#toggleMobileMenu" aria-controls="toggleMobileMenu" aria-expanded="false" aria-table="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color: white;"></span>
+            </button>
+            <div class="collapse navbar-collapse bg-dark mt-3" id="toggleMobileMenu">
+                <ul class="navbar-nav ms-auto text-center">
+                    <li class="nav_effect nav-item" onclick="location.href = 'index.html'">Home</li>
+                    <li class="nav_effect nav-item" onclick="location.href = 'Workoutpage.html'">Workouts</li>
+                    <li class="nav_effect nav-item" onclick="location.href = 'diet.html'">Diet</li>
+                    <li class="nav_effect nav-item" onclick="location.href = 'gymreview.html'">Gym Reviews</li>
+                    <li class="nav-item nav_profile text-light dropdown my-auto" style="font-size: 30px;">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span style="font-size: 25px; padding-right: 5px;"><i class="far fa-user-circle"></i></span>
+                        </a>
+                        <div class="dropdown-menu mt-3" id="profile_nav_item" style="right: 0; left: auto;" aria-labelledby="dropdownMenuButton">
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<script>
+    var email = sessionStorage.getItem("email")
+    var type = sessionStorage.getItem('type')
+    if (sessionStorage.getItem("email"))
+    {
+        document.getElementById('profile_nav_item').innerHTML = `
+        <a class='dropdown-item profile_DDI' href='./profile.html'>Profile</a>
+        <a class='dropdown-item profile_DDI' onclick="clearSession()" href='./index.html'>Logout</a>
+        `
+    }
+    else
+    {
+        document.getElementById('profile_nav_item').innerHTML = `
+        <a class='dropdown-item profile_DDI' href='./login.html'>Login</a>
+        <a class='dropdown-item profile_DDI' href='./registration.html'>Sign Up</a>
+        `
+    }
+</script>
+
+<script>
+    //Get the button
+    let mybutton = document.getElementById("myBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {
+        scrollFunction();
+    };
+
+    function scrollFunction() {
+        if (
+            document.body.scrollTop > 20 ||
+            document.documentElement.scrollTop > 20
+        ) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    function clearSession() {
+        sessionStorage.clear()
+    }
+</script>
+
+    <div id="app1">
+        <div class="container">
+            <div class="nav nav-tabs nav-justified">
+                <p class="nav-item">
+                    <a class="nav-link" @click.prevent="setActive('Anytime Fitness')" :class="{ active: isActive('Anytime Fitness') }" :style="{fontSize:'15px'}" onclick="location.href = 'gymreview.html'">Anytime Fitness</a>
+                </p>
+                <p class="nav-item">
+                    <a class="nav-link" @click.prevent="setActive('Fitness First')" :class="{ active: isActive('Fitness First') }" :style="{fontSize:'15px'}" onclick="location.href = 'fitnessfirst.html'">Fitness First</a>
+                </p>
+                <p class="nav-item">
+                    <a class="nav-link" @click.prevent="setActive('Gym Boxx')" :class="{ active: isActive('Gym Boxx') }" :style="{fontSize:'15px'}" onclick="location.href = 'gymboxx.html'">Gym Boxx</a>
+                </p>
+                <p class="nav-item">
+                    <a class="nav-link" @click.prevent="setActive('True Fitness')" :class="{ active: isActive('True Fitness') }" :style="{fontSize:'15px'}" onclick="location.href = 'truefitness.html'">True Fitness</a>
+                </p>
+                <p class="nav-item">
+                    <a class="nav-link" @click.prevent="setActive('Virgin Active')" :class="{ active: isActive('Virgin Active') }" :style="{fontSize:'15px'}" onclick="location.href = 'virginactive.html'">Virgin Active</a>
+                </p>
+            </div>
+        </div>
+        <div class="row bg-dark text-white">
+            <div class="gym_info text-center" style="position: relative">
+              <img class="logo" style="width: 200px; height: 100px; top: 0; left: 0" src="./imgs/anytimefitnesslogo.PNG">
+              <h2> Anytime Fitness </h2>
+              <div>
+                Price ($):
+                {{gyms[0].price}}
+                / month
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const app1 = Vue.createApp({
+            data() {
+                return {
+                    name: '',
+                    price: '',
+                    gyms: [],
+                    activeItem: 'Anytime Fitness',
+
+                }
+            },
+            async created() {
+                const response = await axios.get("https://dcsibh9m73.execute-api.ap-southeast-1.amazonaws.com/prod/retrieveAllGymsNPrice.php")
+
+                for (eachObj of response.data) {
+                    eachObj = JSON.parse(eachObj)
+                    const gym = {
+                        'name': eachObj.name,
+                        'price': eachObj.price
+                    }
+                    this.gyms.push(gym)
+
+                }
+
+            },
+            methods: {
+                isActive(menuItem) {
+                    return this.activeItem === menuItem
+                    // this will assign ur parameter item to be the activeItem
+                },
+                setActive(menuItem) {
+                    this.activeItem = menuItem
+                    // this allows u to toggle between the different tabs
+                },
+            }
+
+
+        })
+        app1.mount("#app1")
+    </script>
+
+    <div class="mx-auto box text-center pt-5 bg-dark">
+        <!-- this creates the lines at the bottom of the picture to indicate first pic, second pic etc -->
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5" aria-label="Slide 6"></button>
+
+          </div>
+
+          <div id="app2">
+              <div class="carousel-inner">
+                  <each-item v-for="(each,index) in reviews[0]" :count='index' :review="each"></each-item>
+              </div>
+              <!-- this creates the back and next arrows to switch the photos -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+          </div>
+        </div>
+    </div>
+
+    <script>
+        const app2 = Vue.createApp({
+            data() {
+                return {
+                    name: '',
+                    reviews: [],
+                    gyms: [],
+                }
+                },
+                async created() {
+                    const response = await axios.get("https://dcsibh9m73.execute-api.ap-southeast-1.amazonaws.com/prod/retrieveGymReviews.php")
+                    let data = response.data
+                    for (i = 0; i < data.length; i++) {
+
+                        let gymName = data[i].name;
+                        let gymReviews = data[i].reviews;
+
+                        this.gyms.push(gymName)
+                        let eachArr = []
+                        for (j = 0; j < gymReviews.length; j++) {
+                            eachArr.push(gymReviews[j])
+                        }
+                        this.reviews.push(eachArr)
+
+                        }
+                    },
+                })
+
+                app2.component('each-item', {
+                    props: ['count', 'review'],
+                    data() {
+                        return {
+                            imageUrl: ''
+                        }
+                    },
+
+                    created() {
+                        axios.get(url = "https://randomuser.me/api")
+                            .then(
+                                resp => {
+                                    this.imageUrl = resp.data.results[0].picture.large
+                                }
+                            )
+                    },
+                    template: 
+                    `
+                    <div v-bind:class="{ 'active' : count == 0}" class="carousel-item" data-bs-interval="3000" style="height:420px">
+                        <img style="width:150px; height:150px; margin-bottom:20px; border-radius: 50%;" :src="this.imageUrl">  
+                        <div class="w-75 mx-auto mb-4 p-3 bg-dark text-white">
+                          {{review}}
+                        </div>
+                    </div>
+
+                    `
+                    });
+        app2.mount("#app2")
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <!--get footer-->
+    <footer class="bg-dark text-center text-white">
+        <div class="container p-4 pb-0">
+          <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-secondary btn-floating mx-1" href="https://www.facebook.com/home.php" role="button">
+              <span style="font-size: 25px;"><i class="fab fa-facebook"></i></span>
+            </a>
+      
+            <!-- Twitter -->
+            <a class="btn btn-secondary btn-floating mx-1" href="https://twitter.com/" role="button">
+              <span style="font-size: 25px;"><i class="fab fa-twitter"></i></span>
+            </a>
+      
+            <!-- Instagram -->
+            <a class="btn btn-secondary btn-floating mx-1" href="https://www.instagram.com/home/" role="button">
+              <span style="font-size: 25px;"><i class="fab fa-instagram"></i></span>
+            </a>
+      
+            <!-- TikTok -->
+            <a class="btn btn-secondary btn-floating mx-1" href="https://www.tiktok.com/en/" role="button">
+              <span style="font-size: 25px;"><i class="fab fa-tiktok"></i></span>
+            </a>
+          </section>
+        </div>
+        <div class="text-center py-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2022 Copyright:
+          <a class="text-white" href="./index.html">Gym.com</a>
+        </div>
+      </footer>
+</body>
+</html>

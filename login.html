@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In | Fit Me </title>
+
+    <script src="https://unpkg.com/vue@next"></script>
+     <!-- Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+     <link rel="icon" type="image/png" href="./images/icons/favicon.ico"/>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+     <!-- Main css -->
+     <link rel="stylesheet" href="css/style.css">
+     
+     <style>
+        body {
+            font-size: 20px;
+        }
+
+        input[type=email]:focus{
+            background-color: rgb(186, 217, 244);
+        }
+    
+        input[type=password]:focus{
+            background-color: rgb(186, 217, 244);
+        }
+
+        table{
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        body{
+            font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            background-image: url("imgs/bg1.jpg");
+            background-size: auto;
+        }
+
+        .bg1 {background-color: #3b5998}
+        .bg2 {background-color: #1da1f2}
+        .bg3 {background-color: #ea4335}
+
+        .login100-social-item {
+            font-size: 25px;
+            color: #fff;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-left: 10px;
+            margin-right: 10px;
+            }
+
+            .login100-social-item:hover {
+            color: #fff;
+            background-color: #333333;
+            }
+
+            .fa {
+                font-size: 15px;
+                text-align: center;
+                border-radius: 50%;
+                }
+    
+    </style>
+    
+    </head>
+    <body>
+    
+    <section class="h-100" style="padding: 50px;">
+        <div class="container-fluid h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-9">
+              <div class="card rounded-3" style="padding:20px; ">
+                  <h2 class="login" style="padding: 20px; text-align: center; font-weight: bold;"> Log In </h2>    
+                <div id="app">
+
+                    <error-alert v-for="error in errors">
+                    {{error}}
+                    <button class="btn btn-primary" @click="clearError()">OK</button>
+                    </error-alert>
+
+            <table class='table table-responsive p-2 m-0'>
+            <div class="row pb-2">
+                <div class="col-sm-6" >
+                    <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_8xkaygbw.json"  background="transparent"  speed="1"  style="width: 100%; height: 300px; padding-right: 50px;justify-content: center;" loop autoplay></lottie-player>
+                </div>
+                    <div class="col-sm-6 mt-5" >
+                        <div class="txt1 text-center p-t-54 p-b-20 mb-3">
+                                Log In using
+                        </div>
+                        <div style="text-align: center; margin-bottom:5px;">
+                            <a href="https://www.facebook.com/login/" class="login100-social-item bg1">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a href="https://twitter.com/login" class="login100-social-item bg2">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a href="https://accounts.google.com/" class="login100-social-item bg3">
+                                <i class="fa fa-google"></i>
+                            </a>
+                        </div>
+                        <div class="txt1 text-center p-t-54 p-b-20 mt-3 mb-3">
+                            Or
+                        </div>
+                            <!-- Log In form -->
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Your Email" v-model="email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="password" placeholder="Password" v-model="password"/>
+                            </div>
+                            <div style="text-align:center; width:100%">
+                            <a href="./registration.html">Haven't created an account?</a>
+                            </div>
+                        </div>
+
+
+                </table>
+                <button class="btn btn-primary w-auto" @click="login()" style="opacity: 100%; float: right;">Log In </button>
+                </div>
+                </div>
+            </div>      
+        </div>
+        </div>
+    </div>
+</div>
+</section>
+    
+<script src="login.js"></script>
+
+    </body>
+</html>
